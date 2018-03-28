@@ -4,8 +4,8 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import com.kkaun.mediator.ui.aug.framework.util.getAngle
 
-class IconMarker(name: String, latitude: Double, longitude: Double,
-                 altitude: Double, color: Int, bitmap: Bitmap)
+class ARMarker(name: String, latitude: Double, longitude: Double,
+               altitude: Double, color: Int, bitmap: Bitmap)
     : Marker(name, latitude, longitude, altitude, color) {
 
     private var bitmap: Bitmap? = null

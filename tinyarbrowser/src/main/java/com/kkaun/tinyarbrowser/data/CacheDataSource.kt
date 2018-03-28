@@ -1,6 +1,6 @@
 package com.kkaun.mediator.ui.aug.framework.data
 
-import com.kkaun.mediator.ui.aug.framework.paintables.IconMarker
+import com.kkaun.mediator.ui.aug.framework.paintables.ARMarker
 import java.util.concurrent.CopyOnWriteArrayList
 
 /**
@@ -9,6 +9,6 @@ import java.util.concurrent.CopyOnWriteArrayList
 
 class CacheDataSource() {
 
-    var markersCache = CopyOnWriteArrayList<IconMarker>()
-    fun setData(data: CopyOnWriteArrayList<IconMarker>) { this.markersCache = data }
+    var markersCache = CopyOnWriteArrayList<ARMarker>()
+    fun setData(data: CopyOnWriteArrayList<ARMarker>) { this.markersCache = data }
 }
