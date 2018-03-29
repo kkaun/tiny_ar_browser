@@ -91,6 +91,7 @@ object ARDataRepository {
         onLocationChanged(currentLocation)
     }
 
+    @JvmStatic
     fun getCurrentLocation(): Location {
         synchronized(ARDataRepository.currentLocation) { return ARDataRepository.currentLocation }
     }
@@ -103,6 +104,7 @@ object ARDataRepository {
         synchronized(ARDataRepository.rotationMatrix) { return rotationMatrix }
     }
 
+    @JvmStatic
     fun addMarkers(markers: Collection<Marker>?) {
         if (markers == null) throw NullPointerException()
         if (markers.isEmpty()) return

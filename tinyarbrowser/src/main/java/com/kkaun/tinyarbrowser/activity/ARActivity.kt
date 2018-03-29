@@ -196,15 +196,15 @@ abstract class ARActivity : OrientationActivity(), OnTouchListener {
     override fun onTouch(view: View, me: MotionEvent): Boolean {
         for (marker in ARDataRepository.markers) {
             if (marker.handleClick(me.x, me.y)) {
-                if (me.action == MotionEvent.ACTION_UP) markerTouched(marker)
+                if (me.action == MotionEvent.ACTION_UP) onMarkerTouched(marker)
                 return true
             }
         }
         return super.onTouchEvent(me)
     }
 
-    protected open fun markerTouched(marker: Marker) {
-        Log.w(TAG, "markerTouched() not implemented.")
+    protected open fun onMarkerTouched(marker: Marker) {
+        Log.w(TAG, "onMarkerTouched() not implemented.")
     }
 
     private fun calcZoomLevel(): Float {
