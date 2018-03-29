@@ -8,6 +8,7 @@ class ARMarker(name: String, latitude: Double, longitude: Double,
                altitude: Double, color: Int, bitmap: Bitmap)
     : Marker(name, latitude, longitude, altitude, color) {
 
+    //TODO: get rid of BITMAP as class field
     private var bitmap: Bitmap? = null
 
     init { this.bitmap = bitmap }
