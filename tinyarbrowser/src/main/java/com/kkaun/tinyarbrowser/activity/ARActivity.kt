@@ -235,6 +235,20 @@ abstract class ARActivity : OrientationActivity(), OnTouchListener {
         return out
     }
 
+    fun useRadar(use: Boolean) {
+        useRadar = use
+    }
+    fun useZoombar(use: Boolean) {
+        useZoomBar = use
+    }
+
+    fun showRadar(show: Boolean) {
+        showRadar = show
+    }
+    fun showZoombar(show: Boolean) {
+        showZoomBar = show
+    }
+
     fun setMenuEnabled(enabled: Boolean){
         menuEnabled = enabled
     }
