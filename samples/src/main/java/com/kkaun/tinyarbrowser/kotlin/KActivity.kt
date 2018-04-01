@@ -34,14 +34,18 @@ class KActivity : ARActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         markerTOs = ArrayList()
+        showProgressBar()
 
         setRadarBodyColor(200, 138, 138, 138)
         setRadarLineColor(255, 255, 255)
         setRadarBodyRadius(100)
         setRadarTextColor(255, 255, 255)
 
+        useCollisionDetection = false
+
         if (savedInstanceState != null) getExtraData(savedInstanceState)
-        else getExtraData(intent.extras)
+        else if(intent.extras != null) getExtraData(intent.extras)
+        //FILL MOCK DATA
         ARDataRepository.addMarkers(markersDataSource.markersCache as List<Marker>)
     }
 
@@ -79,6 +83,7 @@ class KActivity : ARActivity() {
         try { executorService.execute {
             markerTOs = ArrayList()
             loadFreshMockData(lastLocation, markerTOs, markersDataSource, this@KActivity) }
+            hideProgressBar()
         } catch (rej: RejectedExecutionException) {
             Log.w(TAG, "Not running new download Runnable, queue is full.")
         } catch (e: Exception) {

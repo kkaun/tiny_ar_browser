@@ -51,16 +51,16 @@ inside overriden `onCreate()` or business methods:
 | Method signature                                               | Description | Default args / Boundaries |
 |----------------------------------------------------------------|---|---|
 | `setMenuEnabled(enabled: Boolean)`                             | Enable/disable menu button  | `true`  |
-| `setZoomProgress(progress: Int)`                               | Set Zoom bar progress  | 1-5  |
-| `setMaxZoom(max: Int)`                                         | Set Zoom bar's max value | 100  |
-| `setMenuSwitchRadarTitle(title: String)`                       | Set menu Radar item title  | Any string from your resources  |
-| `setMenuSwitchZoomBarTitle(title: String)`                     | Set menu Zoom bar item title  | Any string from your resources  |
-| `setMenuExitActivityTitle(title: String)`                      | Set menu Exit item title  | Any string from your resources  |
+| `setZoomProgress(progress: Int)`                               | Set Zoom bar progress (in km) | `1-5`  |
+| `setMaxZoom(max: Int)`                                         | Set Zoom bar's max value (in km) | `2-100`  |
+| `setMenuSwitchRadarTitle(title: String)`                       | Set menu Radar item title  | Any `String` from your resources  |
+| `setMenuSwitchZoomBarTitle(title: String)`                     | Set menu Zoom bar item title  | Any `String` from your resources  |
+| `setMenuExitActivityTitle(title: String)`                      | Set menu Exit item title  | Any `String` from your resources  |
 | `useRadar(use: Boolean)`                                       | Use Radar at all?  | `true`  |
 | `useZoombar(use: Boolean)`                                     | Use Zoom bar at all?  | `true`  |
 | `showRadar(show: Boolean)`                                     | Show Radar?  | `true`  |
 | `showZoombar(show: Boolean)`                                   | Show Zoom bar?  | `true`  |
-| `set<*>BodyRadius(radius: Int)`                                | Replace `<*>` with `Radar` or `MarkerText` to change body radius of the element | 50-200  |
-| `set<*>BodyColor(alpha: Int, red: Int, green: Int, blue: Int)` | Replace `<*>` with `Radar` or `MarkerText` to change body color of the element  | 0-255 for each  |
-| `set<*>TextColor(red: Int, green: Int, blue: Int)`             | Replace `<*>` with `Radar` or `MarkerText` to change text color of the element  | 0-255 for each  |
-| `set<*>LineColor(red: Int, green: Int, blue: Int)`             | Replace `<*>` with `Radar` or `MarkerText` to change lines color of the element | 0-255 for each  |
+| `set<*>BodyRadius(radius: Int)`                                | Replace `<*>` with `Radar` or `MarkerText` to change body radius of corresponding element | `50-200`  |
+| `set<*>BodyColor(alpha: Int, red: Int, green: Int, blue: Int)` | Replace `<*>` with `Radar` or `MarkerText` to change body color of corresponding element  | `0-255` for each (ARGB)  |
+| `set<*>TextColor(red: Int, green: Int, blue: Int)`             | Replace `<*>` with `Radar` or `MarkerText` to change text color of corresponding element  | `0-255` for each (RGB)  |
+| `set<*>LineColor(red: Int, green: Int, blue: Int)`             | Replace `<*>` with `Radar` or `MarkerText` to change lines color of corresponding element | `0-255` for each (RGB)  |

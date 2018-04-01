@@ -57,6 +57,10 @@ abstract class ARActivity : OrientationActivity(), OnTouchListener {
     var endLabel: TextView? = null
     open var zoomLayout: LinearLayout? = null
 
+    lateinit var progressBarLayout: RelativeLayout
+    lateinit var progressBar: ProgressBar
+
+
     private val myZoomBarOnSeekBarChangeListener = object : OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
             updateDataOnZoom()
@@ -79,6 +83,7 @@ abstract class ARActivity : OrientationActivity(), OnTouchListener {
         prepareMenuBtnLayout()
         setPopupMenu()
         prepareZoomLayout()
+        prepareProgressBarLayout()
         preparePowerManager()
     }
 
@@ -109,6 +114,25 @@ abstract class ARActivity : OrientationActivity(), OnTouchListener {
         val menuLayoutParams = FrameLayout.LayoutParams(pixels, pixels,
                 Gravity.BOTTOM or Gravity.START)
         addContentView(menuBtnLayout, menuLayoutParams)
+    }
+
+    fun prepareProgressBarLayout() {
+        val dpSize = 60 //in dp
+        val scale = ctx.resources.displayMetrics.density
+        val pixels = (dpSize * scale + 0.5f).toInt()
+        progressBarLayout = RelativeLayout(this@ARActivity)
+        progressBarLayout.visibility = View.GONE
+        progressBarLayout.setBackgroundColor(Color.TRANSPARENT)
+        progressBar = ProgressBar(this@ARActivity, null, android.R.attr.progressBarStyleLarge)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            progressBar.progressDrawable = (resources.getDrawable(R.drawable.progressbar_round))
+        else progressBar.progressDrawable = (resources.getDrawable(R.drawable.progressbar_round))
+
+        val progressBarParams = RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+        progressBarLayout.addView(progressBar, progressBarParams)
+        val progressLayoutParams = FrameLayout.LayoutParams(pixels, pixels,
+                Gravity.CENTER or Gravity.CENTER_HORIZONTAL or Gravity.CENTER_VERTICAL)
+        addContentView(progressBarLayout, progressLayoutParams)
     }
 
     fun setPopupMenu() {
@@ -162,6 +186,7 @@ abstract class ARActivity : OrientationActivity(), OnTouchListener {
         addContentView(zoomLayout, frameLayoutParams)
         updateDataOnZoom()
     }
+
 
     fun preparePowerManager() {
         val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
@@ -235,6 +260,14 @@ abstract class ARActivity : OrientationActivity(), OnTouchListener {
         return out
     }
 
+    fun showProgressBar() {
+        progressBarLayout.visibility = View.VISIBLE
+    }
+    fun hideProgressBar() {
+        progressBarLayout.visibility = View.INVISIBLE
+        progressBarLayout.visibility = View.GONE
+    }
+
     fun useRadar(use: Boolean) {
         useRadar = use
     }
@@ -281,5 +314,17 @@ abstract class ARActivity : OrientationActivity(), OnTouchListener {
     }
     fun setRadarLineColor(red: Int, green: Int, blue: Int) {
         if(showRadar) arView?.radar?.setLineColor(red, green, blue)
+    }
+    fun setMarkerTextBodyRadius(radius: Int) {
+        //if(showRadar) arView?.radar?.setRadarBodyRadius(radius.toFloat())
+    }
+    fun setMarkerTextBodyColor(alpha: Int, red: Int, green: Int, blue: Int) {
+        //if(showRadar) arView?.radar?.setRadarBodyColor(alpha, red, green, blue)
+    }
+    fun setMarkerTextColor(red: Int, green: Int, blue: Int) {
+        //if(showRadar) arView?.radar?.setTextColor(red, green, blue)
+    }
+    fun setMarkerTextLineColor(red: Int, green: Int, blue: Int) {
+        //if(showRadar) arView?.radar?.setLineColor(red, green, blue)
     }
 }
