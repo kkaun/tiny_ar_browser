@@ -1,4 +1,4 @@
-package com.kkaun.mediator.ui.aug.framework.activity
+package com.kkaun.tinyarbrowser.activity
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -18,12 +18,12 @@ import android.view.View.OnTouchListener
 import android.view.ViewGroup.LayoutParams
 import android.widget.*
 import android.widget.SeekBar.OnSeekBarChangeListener
+import com.kkaun.tinyarbrowser.R
 import com.kkaun.tinyarbrowser.camera.CameraSurface
 import com.kkaun.tinyarbrowser.data.ARDataRepository
 import com.kkaun.tinyarbrowser.paintables.Marker
 import com.kkaun.tinyarbrowser.view.ARView
 import com.kkaun.tinyarbrowser.view.VerticalSeekBar
-import com.kkaun.tinyarbrowser.R
 import org.jetbrains.anko.ctx
 import java.text.DecimalFormat
 
@@ -32,12 +32,12 @@ abstract class ARActivity : OrientationActivity(), OnTouchListener {
     companion object {
         private val TAG = "ARActivity"
         private val FORMAT = DecimalFormat("#.##")
-        private val ZOOMBAR_BACKGROUND_COLOR = Color.argb(125, 55, 55, 55)
-        private val END_TEXT = FORMAT.format(ARActivity.maxZoom.toDouble()) + " km"
-        private val END_TEXT_COLOR = Color.WHITE
+        var maxZoom = 5 //in km
+        private val zoomBarBackgroundColor = Color.argb(125, 55, 55, 55)
+        private val endText = FORMAT.format(maxZoom.toDouble()) + " km"
+        private val endTextColor = Color.WHITE
         //PREFS
         var menuEnabled = true
-        var maxZoom = 5 //in km
         var useCollisionDetection = true //!
         var useRadar = true
         var useZoomBar = true
@@ -168,10 +168,10 @@ abstract class ARActivity : OrientationActivity(), OnTouchListener {
         zoomLayout!!.visibility = if (showZoomBar) LinearLayout.VISIBLE else LinearLayout.GONE
         zoomLayout!!.orientation = LinearLayout.VERTICAL
         zoomLayout!!.setPadding(5, 5, 5, 5)
-        zoomLayout!!.setBackgroundColor(ZOOMBAR_BACKGROUND_COLOR)
+        zoomLayout!!.setBackgroundColor(zoomBarBackgroundColor)
         endLabel = TextView(this@ARActivity)
-        endLabel!!.text = END_TEXT
-        endLabel!!.setTextColor(END_TEXT_COLOR)
+        endLabel!!.text = endText
+        endLabel!!.setTextColor(endTextColor)
         val zoomTextParams = LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
         zoomLayout!!.addView(endLabel, zoomTextParams)
         mZoomBar = VerticalSeekBar(this@ARActivity)

@@ -9,7 +9,7 @@ import android.graphics.PointF
 import android.location.Location
 import android.os.Parcel
 import android.os.Parcelable
-import com.kkaun.mediator.ui.aug.framework.activity.ARActivity
+import com.kkaun.tinyarbrowser.activity.ARActivity
 import com.kkaun.tinyarbrowser.data.CacheDataSource
 import com.kkaun.tinyarbrowser.paintables.ARMarker
 import java.util.*

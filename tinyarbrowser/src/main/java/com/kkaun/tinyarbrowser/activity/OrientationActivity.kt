@@ -1,4 +1,4 @@
-package com.kkaun.mediator.ui.aug.framework.activity
+package com.kkaun.tinyarbrowser.activity
 
 import android.annotation.SuppressLint
 import android.app.Activity

@@ -3,7 +3,7 @@ package com.kkaun.tinyarbrowser.view
 import android.content.Context
 import android.graphics.Canvas
 import android.view.View
-import com.kkaun.mediator.ui.aug.framework.activity.ARActivity
+import com.kkaun.tinyarbrowser.activity.ARActivity
 import com.kkaun.tinyarbrowser.data.ARDataRepository
 import com.kkaun.tinyarbrowser.paintables.Marker
 import com.kkaun.tinyarbrowser.paintables.Radar

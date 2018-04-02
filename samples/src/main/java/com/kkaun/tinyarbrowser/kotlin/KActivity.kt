@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.widget.Toast
-import com.kkaun.mediator.ui.aug.framework.activity.ARActivity
+import com.kkaun.tinyarbrowser.activity.ARActivity
 import com.kkaun.tinyarbrowser.data.ARDataRepository
 import com.kkaun.tinyarbrowser.data.CacheDataSource
 import com.kkaun.tinyarbrowser.paintables.Marker
