@@ -18,11 +18,11 @@ import android.view.View.OnTouchListener
 import android.view.ViewGroup.LayoutParams
 import android.widget.*
 import android.widget.SeekBar.OnSeekBarChangeListener
-import com.kkaun.mediator.ui.aug.framework.camera.CameraSurface
-import com.kkaun.mediator.ui.aug.framework.data.ARDataRepository
-import com.kkaun.mediator.ui.aug.framework.paintables.Marker
-import com.kkaun.mediator.ui.aug.framework.view.ARView
-import com.kkaun.mediator.ui.aug.framework.view.VerticalSeekBar
+import com.kkaun.tinyarbrowser.camera.CameraSurface
+import com.kkaun.tinyarbrowser.data.ARDataRepository
+import com.kkaun.tinyarbrowser.paintables.Marker
+import com.kkaun.tinyarbrowser.view.ARView
+import com.kkaun.tinyarbrowser.view.VerticalSeekBar
 import com.kkaun.tinyarbrowser.R
 import org.jetbrains.anko.ctx
 import java.text.DecimalFormat

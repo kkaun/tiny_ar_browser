@@ -1,6 +1,6 @@
-package com.kkaun.mediator.ui.aug.framework.projection
+package com.kkaun.tinyarbrowser.projection
 
-import com.kkaun.mediator.ui.aug.framework.util.getAngle
+import com.kkaun.tinyarbrowser.util.getAngle
 
 object PitchAzimuthCalculator {
 
@@ -25,13 +25,13 @@ object PitchAzimuthCalculator {
         looking.set(1f, 0f, 0f)
         looking.prod(rotationM)
         looking.get(lookingArray)
-        PitchAzimuthCalculator.azimuth = (getAngle(0f, 0f,
+        azimuth = (getAngle(0f, 0f,
                 lookingArray[0], lookingArray[2]) + 360) % 360
         rotationM.transpose()
         looking.set(0f, 1f, 0f)
         looking.prod(rotationM)
         looking.get(lookingArray)
-        PitchAzimuthCalculator.pitch = -getAngle(0f, 0f,
+        pitch = -getAngle(0f, 0f,
                 lookingArray[1], lookingArray[2])
     }
 }

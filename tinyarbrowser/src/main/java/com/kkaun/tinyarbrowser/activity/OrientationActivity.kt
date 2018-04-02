@@ -9,9 +9,9 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
-import com.kkaun.mediator.ui.aug.framework.data.ARDataRepository
-import com.kkaun.mediator.ui.aug.framework.projection.LowPassFilter
-import com.kkaun.mediator.ui.aug.framework.projection.Matrix
+import com.kkaun.tinyarbrowser.data.ARDataRepository
+import com.kkaun.tinyarbrowser.projection.LowPassFilter
+import com.kkaun.tinyarbrowser.projection.Matrix
 import java.util.concurrent.atomic.AtomicBoolean
 
 abstract class OrientationActivity : Activity(), SensorEventListener, LocationListener {

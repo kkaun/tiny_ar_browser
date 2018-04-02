@@ -1,4 +1,4 @@
-package com.kkaun.mediator.ui.aug.framework.view
+package com.kkaun.tinyarbrowser.view
 
 import android.content.Context
 import android.graphics.Canvas

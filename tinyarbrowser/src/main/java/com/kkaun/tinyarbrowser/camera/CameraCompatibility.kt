@@ -1,4 +1,4 @@
-package com.kkaun.mediator.ui.aug.framework.camera
+package com.kkaun.tinyarbrowser.camera
 
 import android.app.Activity
 import android.content.Context

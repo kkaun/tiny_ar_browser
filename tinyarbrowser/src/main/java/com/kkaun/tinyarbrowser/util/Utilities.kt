@@ -1,4 +1,4 @@
-package com.kkaun.mediator.ui.aug.framework.util
+package com.kkaun.tinyarbrowser.util
 
 
 fun getAngle(center_x: Float, center_y: Float, post_x: Float, post_y: Float): Float {

@@ -6,9 +6,9 @@ import android.util.Log
 import android.view.Gravity
 import android.widget.Toast
 import com.kkaun.mediator.ui.aug.framework.activity.ARActivity
-import com.kkaun.mediator.ui.aug.framework.data.ARDataRepository
-import com.kkaun.mediator.ui.aug.framework.data.CacheDataSource
-import com.kkaun.mediator.ui.aug.framework.paintables.Marker
+import com.kkaun.tinyarbrowser.data.ARDataRepository
+import com.kkaun.tinyarbrowser.data.CacheDataSource
+import com.kkaun.tinyarbrowser.paintables.Marker
 import com.kkaun.tinyarbrowser.util.ARMarkerTransferable
 import com.kkaun.tinyarbrowser.util.convertTOsInMarkers
 import com.kkaun.tinyarbrowser.util.loadFreshMockData

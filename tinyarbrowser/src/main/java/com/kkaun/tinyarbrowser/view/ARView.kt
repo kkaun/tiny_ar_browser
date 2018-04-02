@@ -1,12 +1,12 @@
-package com.kkaun.mediator.ui.aug.framework.view
+package com.kkaun.tinyarbrowser.view
 
 import android.content.Context
 import android.graphics.Canvas
 import android.view.View
 import com.kkaun.mediator.ui.aug.framework.activity.ARActivity
-import com.kkaun.mediator.ui.aug.framework.data.ARDataRepository
-import com.kkaun.mediator.ui.aug.framework.paintables.Marker
-import com.kkaun.mediator.ui.aug.framework.paintables.Radar
+import com.kkaun.tinyarbrowser.data.ARDataRepository
+import com.kkaun.tinyarbrowser.paintables.Marker
+import com.kkaun.tinyarbrowser.paintables.Radar
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
 

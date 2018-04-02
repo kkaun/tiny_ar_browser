@@ -1,12 +1,12 @@
-package com.kkaun.mediator.ui.aug.framework.paintables
+package com.kkaun.tinyarbrowser.paintables
 
 import android.graphics.Canvas
 import android.graphics.Color
-import com.kkaun.mediator.ui.aug.framework.camera.CameraModel
-import com.kkaun.mediator.ui.aug.framework.data.ARDataRepository
-import com.kkaun.mediator.ui.aug.framework.projection.PitchAzimuthCalculator
-import com.kkaun.mediator.ui.aug.framework.util.ScreenPositionHelper
-import com.kkaun.mediator.ui.aug.framework.util.calcColorRange
+import com.kkaun.tinyarbrowser.projection.PitchAzimuthCalculator
+import com.kkaun.tinyarbrowser.util.ScreenPositionHelper
+import com.kkaun.tinyarbrowser.util.calcColorRange
+import com.kkaun.tinyarbrowser.camera.CameraModel
+import com.kkaun.tinyarbrowser.data.ARDataRepository
 
 class Radar {
 

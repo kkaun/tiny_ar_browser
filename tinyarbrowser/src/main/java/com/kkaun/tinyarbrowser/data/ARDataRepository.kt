@@ -1,10 +1,10 @@
-package com.kkaun.mediator.ui.aug.framework.data
+package com.kkaun.tinyarbrowser.data
 
 import android.location.Location
 import android.location.LocationManager
 import android.util.Log
-import com.kkaun.mediator.ui.aug.framework.paintables.Marker
-import com.kkaun.mediator.ui.aug.framework.projection.Matrix
+import com.kkaun.tinyarbrowser.paintables.Marker
+import com.kkaun.tinyarbrowser.projection.Matrix
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArrayList
@@ -66,7 +66,7 @@ object ARDataRepository {
     }
 
     fun setZoomProgress(zoomProgress: Int) {
-        synchronized(ARDataRepository.zoomProgressLock) {
+        synchronized(zoomProgressLock) {
             if (ARDataRepository.zoomProgress != zoomProgress) {
                 ARDataRepository.zoomProgress = zoomProgress
                 if (dirty.compareAndSet(false, true)) {
@@ -78,10 +78,10 @@ object ARDataRepository {
     }
 
     fun setRadius(radius: Float) {
-        synchronized(ARDataRepository.radiusLock) { ARDataRepository.radius = radius }
+        synchronized(radiusLock) { ARDataRepository.radius = radius }
     }
     fun getRadius(): Float {
-        synchronized(ARDataRepository.radiusLock) { return ARDataRepository.radius }
+        synchronized(radiusLock) { return radius }
     }
 
     fun setCurrentLocation(currentLocation: Location?) {
@@ -93,7 +93,7 @@ object ARDataRepository {
 
     @JvmStatic
     fun getCurrentLocation(): Location {
-        synchronized(ARDataRepository.currentLocation) { return ARDataRepository.currentLocation }
+        synchronized(currentLocation) { return currentLocation }
     }
 
     fun setRotationMatrix(rotationMatrix: Matrix) {
@@ -101,7 +101,7 @@ object ARDataRepository {
     }
 
     fun getRotationMatrix(): Matrix {
-        synchronized(ARDataRepository.rotationMatrix) { return rotationMatrix }
+        synchronized(rotationMatrix) { return rotationMatrix }
     }
 
     @JvmStatic
@@ -111,7 +111,7 @@ object ARDataRepository {
         Log.d(TAG, "New markers, updating markers. New markers: " + markers.toString())
         for (marker in markers) {
             if (!markerMap.containsKey(marker.name)) {
-                marker.calcRelativePosition(ARDataRepository.getCurrentLocation())
+                marker.calcRelativePosition(getCurrentLocation())
                 markerMap[marker.name] = marker
             }
         }
@@ -134,18 +134,18 @@ object ARDataRepository {
         synchronized(azimuthLock) { ARDataRepository.azimuth = azimuth }
     }
     fun getAzimuth(): Float {
-        synchronized(azimuthLock) { return ARDataRepository.azimuth }
+        synchronized(azimuthLock) { return azimuth }
     }
     fun setPitch(pitch: Float) {
         synchronized(pitchLock) { ARDataRepository.pitch = pitch }
     }
     fun getPitch(): Float {
-        synchronized(pitchLock) { return ARDataRepository.pitch }
+        synchronized(pitchLock) { return pitch }
     }
     fun setRoll(roll: Float) {
         synchronized(rollLock) { ARDataRepository.roll = roll }
     }
     fun getRoll(): Float {
-        synchronized(rollLock) { return ARDataRepository.roll }
+        synchronized(rollLock) { return roll }
     }
 }

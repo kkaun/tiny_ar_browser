@@ -1,6 +1,6 @@
-package com.kkaun.mediator.ui.aug.framework.camera
+package com.kkaun.tinyarbrowser.camera
 
-import com.kkaun.mediator.ui.aug.framework.projection.Vector
+import com.kkaun.tinyarbrowser.projection.Vector
 
 class CameraModel(width: Int, height: Int, init: Boolean) {
 

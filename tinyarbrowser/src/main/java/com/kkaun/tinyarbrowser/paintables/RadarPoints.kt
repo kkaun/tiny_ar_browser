@@ -1,7 +1,7 @@
-package com.kkaun.mediator.ui.aug.framework.paintables
+package com.kkaun.tinyarbrowser.paintables
 
 import android.graphics.Canvas
-import com.kkaun.mediator.ui.aug.framework.data.ARDataRepository
+import com.kkaun.tinyarbrowser.data.ARDataRepository
 
 class RadarPoints : CommonPaintable() {
     private val locationArray = FloatArray(3)

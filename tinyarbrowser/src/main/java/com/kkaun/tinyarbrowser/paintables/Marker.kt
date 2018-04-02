@@ -1,14 +1,14 @@
-package com.kkaun.mediator.ui.aug.framework.paintables
+package com.kkaun.tinyarbrowser.paintables
 
 import android.graphics.Canvas
 import android.graphics.Color
 import android.location.Location
 import android.util.Log
-import com.kkaun.mediator.ui.aug.framework.camera.CameraModel
-import com.kkaun.mediator.ui.aug.framework.data.ARDataRepository
-import com.kkaun.mediator.ui.aug.framework.projection.Vector
-import com.kkaun.mediator.ui.aug.framework.util.PhysicalLocationHelper
-import com.kkaun.mediator.ui.aug.framework.util.getAngle
+import com.kkaun.tinyarbrowser.camera.CameraModel
+import com.kkaun.tinyarbrowser.data.ARDataRepository
+import com.kkaun.tinyarbrowser.projection.Vector
+import com.kkaun.tinyarbrowser.util.PhysicalLocationHelper
+import com.kkaun.tinyarbrowser.util.getAngle
 import java.text.DecimalFormat
 import java.util.*
 

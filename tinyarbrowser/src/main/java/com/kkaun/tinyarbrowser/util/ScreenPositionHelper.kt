@@ -1,4 +1,4 @@
-package com.kkaun.mediator.ui.aug.framework.util
+package com.kkaun.tinyarbrowser.util
 
 class ScreenPositionHelper() {
 

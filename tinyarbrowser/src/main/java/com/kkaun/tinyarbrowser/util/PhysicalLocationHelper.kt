@@ -1,7 +1,7 @@
-package com.kkaun.mediator.ui.aug.framework.util
+package com.kkaun.tinyarbrowser.util
 
 import android.location.Location
-import com.kkaun.mediator.ui.aug.framework.projection.Vector
+import com.kkaun.tinyarbrowser.projection.Vector
 
 class PhysicalLocationHelper() {
 

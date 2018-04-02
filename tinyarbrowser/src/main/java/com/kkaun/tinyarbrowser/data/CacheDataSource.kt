@@ -1,6 +1,6 @@
-package com.kkaun.mediator.ui.aug.framework.data
+package com.kkaun.tinyarbrowser.data
 
-import com.kkaun.mediator.ui.aug.framework.paintables.ARMarker
+import com.kkaun.tinyarbrowser.paintables.ARMarker
 import java.util.concurrent.CopyOnWriteArrayList
 
 /**

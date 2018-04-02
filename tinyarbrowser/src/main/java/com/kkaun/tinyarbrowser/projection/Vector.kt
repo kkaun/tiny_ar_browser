@@ -1,4 +1,4 @@
-package com.kkaun.mediator.ui.aug.framework.projection
+package com.kkaun.tinyarbrowser.projection
 
 class Vector @JvmOverloads constructor(x: Float = 0f, y: Float = 0f, z: Float = 0f) {
     private val matrixArray = FloatArray(9)

@@ -1,8 +1,8 @@
-package com.kkaun.mediator.ui.aug.framework.paintables
+package com.kkaun.tinyarbrowser.paintables
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import com.kkaun.mediator.ui.aug.framework.util.getAngle
+import com.kkaun.tinyarbrowser.util.getAngle
 
 class ARMarker(name: String, latitude: Double, longitude: Double,
                altitude: Double, color: Int, bitmap: Bitmap)
