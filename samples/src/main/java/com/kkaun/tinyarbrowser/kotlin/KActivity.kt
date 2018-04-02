@@ -34,14 +34,14 @@ class KActivity : ARActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         markerTOs = ArrayList()
-        showProgressBar()
+        //showProgressBar()
 
         setRadarBodyColor(200, 138, 138, 138)
         setRadarLineColor(255, 255, 255)
         setRadarBodyRadius(100)
         setRadarTextColor(255, 255, 255)
 
-        useCollisionDetection = false
+        //useCollisionDetection = false
 
         if (savedInstanceState != null) getExtraData(savedInstanceState)
         else if(intent.extras != null) getExtraData(intent.extras)
@@ -82,12 +82,13 @@ class KActivity : ARActivity() {
     private fun updateData(lastLocation: Location) {
         try { executorService.execute {
             markerTOs = ArrayList()
-            loadFreshMockData(lastLocation, markerTOs, markersDataSource, this@KActivity) }
+            loadFreshMockData(lastLocation, markerTOs, markersDataSource, this@KActivity)
+        }
             hideProgressBar()
         } catch (rej: RejectedExecutionException) {
-            Log.w(TAG, "Not running new download Runnable, queue is full.")
+            Log.w(TAG, "Exception running data update: RejectedExecutionException")
         } catch (e: Exception) {
-            Log.e(TAG, "Exception running download Runnable.", e) }
+            Log.e(TAG, "Exception running data update", e) }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

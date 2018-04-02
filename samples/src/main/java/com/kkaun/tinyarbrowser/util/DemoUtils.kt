@@ -74,7 +74,7 @@ fun loadFreshMockData(userLocation: Location, markerTOs: ArrayList<ARMarkerTrans
                               markersDataSource: CacheDataSource, activity: ARActivity) {
     val mockRadius = 5000
     val multiplyFactor = 1.0
-    val step = 0.009
+    val step = 0.008
     val random = Random()
 
     val p1 = calculateDerivedPosition(convertLocationToPointF(userLocation),
@@ -86,14 +86,14 @@ fun loadFreshMockData(userLocation: Location, markerTOs: ArrayList<ARMarkerTrans
     val p4 = calculateDerivedPosition(convertLocationToPointF(userLocation),
             multiplyFactor * mockRadius, 270.toDouble())
 
-    val lonMin = p3.x
-    val lonMax = p1.x
-    val latMin = p2.y
-    val latMax = p4.y
+    val lonMin = p3.x.toDouble()
+    val lonMax = p1.x.toDouble()
+    val latMax = p2.y.toDouble()
+    val latMin = p4.y.toDouble()
 
-    var x = lonMin.toDouble()
+    var x = lonMin
     while (x <= lonMax) {
-        var y = latMin.toDouble()
+        var y = latMin
         while (y <= latMax) {
             markerTOs.add(ARMarkerTransferable("$x | $y", y, x, random.nextInt(100),
                     Color.rgb(255, 255, 255), "custom_marker_grey"))
