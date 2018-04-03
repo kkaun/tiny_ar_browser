@@ -1,20 +1,37 @@
 
 buildscript {
-    ext.kotlin_version = '1.2.21'
+    ext.kotlinVersion = '1.2.21'
+    ext.ankoVersion = '0.10.2'
     repositories {
         jcenter()
         google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     }
 }
 
 allprojects {
     repositories {
-        google()
         jcenter()
+        google()
     }
 }
 
+ext {
+    compileSdkVersion = 27
+    buildToolsVersion = '27.0.2'
+    minSdkVersion = 15
+    targetSdkVersion = compileSdkVersion
+
+    supportLibVersion = '27.0.2'
+
+    versionCode = 11
+    versionName = '1.1'
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
