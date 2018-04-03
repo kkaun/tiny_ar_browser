@@ -23,7 +23,7 @@ Root `build.gradle`:
 Local `build.gradle`:
 
 	dependencies {
-	        compile 'com.github.kkaun:tiny_ar_browser:master-SNAPSHOT'
+	        implementation 'com.github.kkaun:tiny_ar_browser:1.2'
 	}
 
 After the import all you have to do to make it work is:
@@ -64,3 +64,9 @@ inside overriden `onCreate()` or business methods:
 | `set<*>BodyColor(alpha: Int, red: Int, green: Int, blue: Int)` | Replace `<*>` with `Radar` or `MarkerText` to change body color of corresponding element  | `0-255` for each (ARGB)  |
 | `set<*>TextColor(red: Int, green: Int, blue: Int)`             | Replace `<*>` with `Radar` or `MarkerText` to change text color of corresponding element  | `0-255` for each (RGB)  |
 | `set<*>LineColor(red: Int, green: Int, blue: Int)`             | Replace `<*>` with `Radar` or `MarkerText` to change lines color of corresponding element | `0-255` for each (RGB)  |
+
+## Demo
+
+After forking/downloading project you can quickly check how it works by running 
+it on device/emulator. Sample activities are located in 
+[samples](https://github.com/kkaun/tiny_ar_browser/tree/master/samples) directory.

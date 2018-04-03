@@ -66,13 +66,20 @@ fun convertTOsInMarkers(activity: ARActivity, markerTOs: List<ARMarkerTransferab
 }
 
 
+fun mapARMarkerTOInARMarker(activity: ARActivity, arMarkerTO: ARMarkerTransferable): ARMarker {
+    return ARMarker(arMarkerTO.name, arMarkerTO.latitude, arMarkerTO.longitude,
+            arMarkerTO.altitude.toDouble(), arMarkerTO.color,
+            getBitmapFromDrawableNameForActivity(activity, arMarkerTO.bitmapName))
+}
+
+
 /**
  * Method for generating mock data based on current location for demonstrating purposes
  */
 fun getFreshMockData(userLocation: Location): ArrayList<ARMarkerTransferable> {
 
     val markerTOs = ArrayList<ARMarkerTransferable>()
-    val mockRadius = 2000
+    val mockRadius = 5000
     val multiplyFactor = 1.0
     val step = 0.008
     val random = Random()
@@ -86,16 +93,16 @@ fun getFreshMockData(userLocation: Location): ArrayList<ARMarkerTransferable> {
     val p4 = calculateDerivedPosition(convertLocationToPointF(userLocation),
             multiplyFactor * mockRadius, 270.toDouble())
 
-    val lonMin = p3.x.toDouble()
-    val lonMax = p1.x.toDouble()
-    val latMax = p2.y.toDouble()
-    val latMin = p4.y.toDouble()
+    val latMin = p3.x.toDouble()
+    val latMax = p1.x.toDouble()
+    val lonMax = p2.y.toDouble()
+    val lonMin = p4.y.toDouble()
 
-    var x = latMin
-    while (x <= latMax) {
-        var y = lonMin
-        while (y <= lonMax) {
-            markerTOs.add(ARMarkerTransferable("$x | $y", x, y, 0,
+    var x = lonMin
+    while (x <= lonMax) {
+        var y = latMin
+        while (y <= latMax) {
+            markerTOs.add(ARMarkerTransferable("${random.nextInt(1000)}", y, x, 0,
                     Color.rgb(255, 255, 255), "custom_marker_grey"))
             y += step
         }

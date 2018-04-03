@@ -12,10 +12,8 @@ import com.kkaun.tinyarbrowser.paintables.Marker
 import com.kkaun.tinyarbrowser.util.ARMarkerTransferable
 import com.kkaun.tinyarbrowser.util.convertTOsInMarkers
 import com.kkaun.tinyarbrowser.util.getFreshMockData
-import java.util.concurrent.ArrayBlockingQueue
-import java.util.concurrent.RejectedExecutionException
-import java.util.concurrent.ThreadPoolExecutor
-import java.util.concurrent.TimeUnit
+import com.kkaun.tinyarbrowser.util.mapARMarkerTOInARMarker
+import java.util.concurrent.*
 
 /**
  * Created by Кира on 28.03.2018.
@@ -33,17 +31,18 @@ class KActivity : ARActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        markerTOs = ArrayList()
+
+        //markerTOs = ArrayList()
         //showProgressBar()
         setRadarBodyColor(200, 138, 138, 138)
         setRadarLineColor(255, 255, 255)
         setRadarBodyRadius(100)
         setRadarTextColor(255, 255, 255)
-
         //useCollisionDetection = false
 
         if (savedInstanceState != null) getExtraData(savedInstanceState)
         else getExtraData(intent.extras)
+        ARDataRepository.addMarkers(markersDataSource.markersCache as List<Marker>)
     }
 
     /**
@@ -52,8 +51,8 @@ class KActivity : ARActivity() {
     private fun getExtraData(extras: Bundle) {
         if(extras.containsKey("place_ar_markers")){
             markerTOs = extras.getParcelableArrayList("place_ar_markers")
-            markersDataSource.setData(convertTOsInMarkers(this@KActivity, markerTOs))
-            ARDataRepository.addMarkers(markersDataSource.markersCache as List<Marker>)
+            markersDataSource.setData(CopyOnWriteArrayList(markerTOs.map {
+                mapARMarkerTOInARMarker(this@KActivity, it) }))
         }
     }
 
