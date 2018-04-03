@@ -119,6 +119,7 @@ object ARDataRepository {
             Log.v(TAG, "Setting DIRTY flag!")
             cache.clear()
         }
+        Log.d(TAG, "R DATA MARKERS SIZE : ${markerMap.size}")
     }
 
     private fun onLocationChanged(location: Location) {

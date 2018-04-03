@@ -72,7 +72,7 @@ fun convertTOsInMarkers(activity: ARActivity, markerTOs: List<ARMarkerTransferab
 fun getFreshMockData(userLocation: Location): ArrayList<ARMarkerTransferable> {
 
     val markerTOs = ArrayList<ARMarkerTransferable>()
-    val mockRadius = 5000
+    val mockRadius = 2000
     val multiplyFactor = 1.0
     val step = 0.008
     val random = Random()
@@ -91,16 +91,15 @@ fun getFreshMockData(userLocation: Location): ArrayList<ARMarkerTransferable> {
     val latMax = p2.y.toDouble()
     val latMin = p4.y.toDouble()
 
-    var x = lonMin
-    while (x <= lonMax) {
-        var y = latMin
-        while (y <= latMax) {
-            markerTOs.add(ARMarkerTransferable("$x | $y", y, x, random.nextInt(100),
+    var x = latMin
+    while (x <= latMax) {
+        var y = lonMin
+        while (y <= lonMax) {
+            markerTOs.add(ARMarkerTransferable("$x | $y", x, y, 0,
                     Color.rgb(255, 255, 255), "custom_marker_grey"))
             y += step
         }
         x += step
     }
     return markerTOs
-    //markersDataSource.setData(convertTOsInMarkers(activity, markerTOs))
 }

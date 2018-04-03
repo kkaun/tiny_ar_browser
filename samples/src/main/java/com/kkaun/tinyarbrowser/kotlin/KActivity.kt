@@ -12,6 +12,10 @@ import com.kkaun.tinyarbrowser.paintables.Marker
 import com.kkaun.tinyarbrowser.util.ARMarkerTransferable
 import com.kkaun.tinyarbrowser.util.convertTOsInMarkers
 import com.kkaun.tinyarbrowser.util.getFreshMockData
+import java.util.concurrent.ArrayBlockingQueue
+import java.util.concurrent.RejectedExecutionException
+import java.util.concurrent.ThreadPoolExecutor
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by Кира on 28.03.2018.
@@ -21,11 +25,11 @@ class KActivity : ARActivity() {
 
     companion object {
         private val TAG = "KActivity"
-        //private val executorService = ThreadPoolExecutor(1, 1,
-        //        20, TimeUnit.SECONDS, ArrayBlockingQueue<Runnable>(1))
-        private val markersDataSource: CacheDataSource = CacheDataSource()
+        private val executorService = ThreadPoolExecutor(1, 1,
+                20, TimeUnit.SECONDS, ArrayBlockingQueue<Runnable>(1))
     }
-    private lateinit var markerTOs: ArrayList<ARMarkerTransferable>
+    lateinit var markerTOs: ArrayList<ARMarkerTransferable>
+    private val markersDataSource: CacheDataSource = CacheDataSource()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +43,7 @@ class KActivity : ARActivity() {
         //useCollisionDetection = false
 
         if (savedInstanceState != null) getExtraData(savedInstanceState)
-        else if(intent.extras != null) getExtraData(intent.extras)
-        ARDataRepository.addMarkers(markersDataSource.markersCache as List<Marker>)
+        else getExtraData(intent.extras)
     }
 
     /**
@@ -48,10 +51,10 @@ class KActivity : ARActivity() {
      */
     private fun getExtraData(extras: Bundle) {
         if(extras.containsKey("place_ar_markers")){
-            Log.d(TAG, "EXTRAS _____CONTAINS____ KEY. OK")
             markerTOs = extras.getParcelableArrayList("place_ar_markers")
-            Log.d(TAG, "MARKER TOs SIZE : ${markerTOs.size}")
-            markersDataSource.setData(convertTOsInMarkers(this@KActivity, markerTOs)) }
+            markersDataSource.setData(convertTOsInMarkers(this@KActivity, markerTOs))
+            ARDataRepository.addMarkers(markersDataSource.markersCache as List<Marker>)
+        }
     }
 
     /**
@@ -79,17 +82,14 @@ class KActivity : ARActivity() {
     }
 
     private fun updateData(lastLocation: Location) {
-//        try { executorService.execute {
-        Log.d(TAG, "UPDATE DATA ENTERED")
-        markerTOs = getFreshMockData(lastLocation)
-        Log.d(TAG, "MARKER TOs SIZE : ${markerTOs.size}")
-        markersDataSource.setData(convertTOsInMarkers(this@KActivity, markerTOs))
-        ARDataRepository.addMarkers(markersDataSource.markersCache as List<Marker>)
-//        }
-//        } catch (rej: RejectedExecutionException) {
-//            Log.w(TAG, "Exception running data update: RejectedExecutionException")
-//        } catch (e: Exception) {
-//            Log.e(TAG, "Exception running data update", e) }
+        try { executorService.execute {
+                markerTOs = getFreshMockData(lastLocation)
+                markersDataSource.setData(convertTOsInMarkers(this@KActivity, markerTOs))
+                ARDataRepository.addMarkers(markersDataSource.markersCache as List<Marker>) }
+        } catch (rej: RejectedExecutionException) {
+            Log.w(TAG, "Exception running data update: RejectedExecutionException")
+        } catch (e: Exception) {
+            Log.e(TAG, "Exception running data update", e) }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

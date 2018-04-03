@@ -4,7 +4,6 @@ import android.annotation.TargetApi
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
-import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -12,6 +11,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
 import com.kkaun.tinyarbrowser.R
+import com.kkaun.tinyarbrowser.data.ARDataRepository
 import com.kkaun.tinyarbrowser.java.JActivity
 import com.kkaun.tinyarbrowser.kotlin.KActivity
 import java.util.*
@@ -21,9 +21,8 @@ open class SplashActivity : AppCompatActivity(), ColdLocationRequestHelper.ColdL
     companion object {
         private val PERMISSIONS_REQUEST = 1234
     }
-    private val timeoutMillis = 1000
+    private val timeoutMillis = 500
     private var startTimeMillis: Long = 0
-    private var mLocation: Location = Location(LocationManager.GPS_PROVIDER)
 
     /**
      * By setting this flag to false you make Java Sample Activity running instead of Kotlin
@@ -53,7 +52,8 @@ open class SplashActivity : AppCompatActivity(), ColdLocationRequestHelper.ColdL
         if (delayMillis < 0) delayMillis = 0
         Handler().postDelayed({
             val b = Bundle()
-            b.putParcelableArrayList("place_ar_markers", getFreshMockData(mLocation))
+            b.putParcelableArrayList("place_ar_markers", getFreshMockData(
+                    ARDataRepository.getCurrentLocation()))
             val intent = Intent(this@SplashActivity, nextActivityClass)
             intent.putExtras(b)
             startActivity(intent)
@@ -98,7 +98,7 @@ open class SplashActivity : AppCompatActivity(), ColdLocationRequestHelper.ColdL
 
 
     override fun onColdLocationReceived(location: Location) {
-        mLocation = location
+        ARDataRepository.setCurrentLocation(location)
         startNextActivity()
     }
 
