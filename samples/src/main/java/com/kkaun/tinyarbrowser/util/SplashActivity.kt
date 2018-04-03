@@ -3,23 +3,27 @@ package com.kkaun.tinyarbrowser.util
 import android.annotation.TargetApi
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.widget.Toast
 import com.kkaun.tinyarbrowser.R
 import com.kkaun.tinyarbrowser.java.JActivity
 import com.kkaun.tinyarbrowser.kotlin.KActivity
 import java.util.*
 
-open class SplashActivity : AppCompatActivity() {
+open class SplashActivity : AppCompatActivity(), ColdLocationRequestHelper.ColdLocationReceiver {
 
     companion object {
         private val PERMISSIONS_REQUEST = 1234
     }
     private val timeoutMillis = 1000
     private var startTimeMillis: Long = 0
+    private var mLocation: Location = Location(LocationManager.GPS_PROVIDER)
 
     /**
      * By setting this flag to false you make Java Sample Activity running instead of Kotlin
@@ -33,24 +37,26 @@ open class SplashActivity : AppCompatActivity() {
     private val requiredPermissions: Array<String>
         get() {
             var permissions: Array<String>? = null
-            try {
-                permissions = packageManager.getPackageInfo(packageName,
+            try { permissions = packageManager.getPackageInfo(packageName,
                         PackageManager.GET_PERMISSIONS).requestedPermissions
-            } catch (e: PackageManager.NameNotFoundException) {
-                e.printStackTrace()
-            }
-            return if (permissions == null) {
-                arrayOf()
-            } else {
-                permissions.clone()
-            }
+            } catch (e: PackageManager.NameNotFoundException) { e.printStackTrace() }
+            return if (permissions == null) arrayOf()
+            else permissions.clone()
         }
+
+    private fun requestLocationForResult() {
+        ColdLocationRequestHelper.requestColdLocationUpdate(this@SplashActivity, this@SplashActivity)
+    }
 
     private fun startNextActivity() {
         var delayMillis = timeoutMillis - (System.currentTimeMillis() - startTimeMillis)
         if (delayMillis < 0) delayMillis = 0
         Handler().postDelayed({
-            startActivity(Intent(this@SplashActivity, nextActivityClass))
+            val b = Bundle()
+            b.putParcelableArrayList("place_ar_markers", getFreshMockData(mLocation))
+            val intent = Intent(this@SplashActivity, nextActivityClass)
+            intent.putExtras(b)
+            startActivity(intent)
             finish() }, delayMillis)
     }
 
@@ -58,10 +64,8 @@ open class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        startTimeMillis = System.currentTimeMillis()
-
         if (Build.VERSION.SDK_INT >= 23) checkPermissions()
-        else startNextActivity()
+        else requestLocationForResult()
     }
 
 
@@ -73,7 +77,7 @@ open class SplashActivity : AppCompatActivity() {
     @TargetApi(23)
     private fun checkPermissions() {
         val ungrantedPermissions = requiredPermissionsStillNeeded()
-        if (ungrantedPermissions.isEmpty()) startNextActivity()
+        if (ungrantedPermissions.isEmpty()) requestLocationForResult()
         else requestPermissions(ungrantedPermissions, PERMISSIONS_REQUEST)
     }
 
@@ -87,11 +91,23 @@ open class SplashActivity : AppCompatActivity() {
             if (checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED) {
                 Log.d(SplashActivity::class.java.simpleName, "Permission: $permission already granted.")
                 i.remove()
-            } else {
-                Log.d(SplashActivity::class.java.simpleName,
-                        "Permission: $permission not yet granted.")
-            }
+            } else Log.d(SplashActivity::class.java.simpleName, "Permission: $permission not yet granted.")
         }
         return permissions.toTypedArray()
+    }
+
+
+    override fun onColdLocationReceived(location: Location) {
+        mLocation = location
+        startNextActivity()
+    }
+
+    override fun onColdLocationFailure() {
+        Toast.makeText(this@SplashActivity, "Cold location retrieving failed! " +
+                "Perhaps some phone location services are disabled", 2000.toInt()).show()
+    }
+    override fun onProviderDisabled() {
+        Toast.makeText(this@SplashActivity, "Cold location retrieving failed! " +
+                "Perhaps some phone location services are disabled", 2000.toInt()).show()
     }
 }

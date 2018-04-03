@@ -1,9 +1,7 @@
 package com.kkaun.tinyarbrowser.java;
 
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
 
@@ -20,7 +18,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -85,20 +82,17 @@ public class JActivity extends ARActivity {
     }
 
     private void updateData(final Location lastLocation) {
-        try { executorService.execute(new Runnable() {
-                @Override
-                public void run() {
-                    markerTOs = new ArrayList<>();
-                    final Location userLocation = new Location(LocationManager.GPS_PROVIDER);
-                    userLocation.setLatitude(lastLocation.getLatitude());
-                    userLocation.setLongitude(lastLocation.getLongitude());
-                    DemoUtils.loadFreshMockData(userLocation, markerTOs,
-                            markersDataSource, JActivity.this);
-                }});
-        } catch (RejectedExecutionException rej) {
-            Log.w(TAG, "Not running new download Runnable, queue is full.");
-        } catch (Exception e) {
-            Log.e(TAG, "Exception running download Runnable.", e); }
+//        try { executorService.execute(new Runnable() {
+//                @Override
+//                public void run() {
+        markerTOs = DemoUtils.getFreshMockData(lastLocation);
+        markersDataSource.setData(DemoUtils.convertTOsInMarkers(this, markerTOs));
+        ARDataRepository.addMarkers(markersDataSource.getMarkersCache());
+//                }});
+//        } catch (RejectedExecutionException rej) {
+//            Log.w(TAG, "Not running new download Runnable, queue is full.");
+//        } catch (Exception e) {
+//            Log.e(TAG, "Exception running download Runnable.", e); }
     }
 
     @Override

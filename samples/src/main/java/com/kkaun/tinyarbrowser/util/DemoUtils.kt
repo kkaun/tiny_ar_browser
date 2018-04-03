@@ -10,7 +10,6 @@ import android.location.Location
 import android.os.Parcel
 import android.os.Parcelable
 import com.kkaun.tinyarbrowser.activity.ARActivity
-import com.kkaun.tinyarbrowser.data.CacheDataSource
 import com.kkaun.tinyarbrowser.paintables.ARMarker
 import java.util.*
 import java.util.concurrent.CopyOnWriteArrayList
@@ -70,8 +69,9 @@ fun convertTOsInMarkers(activity: ARActivity, markerTOs: List<ARMarkerTransferab
 /**
  * Method for generating mock data based on current location for demonstrating purposes
  */
-fun loadFreshMockData(userLocation: Location, markerTOs: ArrayList<ARMarkerTransferable>,
-                      markersDataSource: CacheDataSource, activity: ARActivity) {
+fun getFreshMockData(userLocation: Location): ArrayList<ARMarkerTransferable> {
+
+    val markerTOs = ArrayList<ARMarkerTransferable>()
     val mockRadius = 5000
     val multiplyFactor = 1.0
     val step = 0.008
@@ -101,5 +101,6 @@ fun loadFreshMockData(userLocation: Location, markerTOs: ArrayList<ARMarkerTrans
         }
         x += step
     }
-    markersDataSource.setData(convertTOsInMarkers(activity, markerTOs))
+    return markerTOs
+    //markersDataSource.setData(convertTOsInMarkers(activity, markerTOs))
 }
