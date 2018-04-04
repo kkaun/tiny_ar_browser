@@ -60,16 +60,22 @@ inline fun <reified T : Parcelable> createParcel(
 
 fun convertTOsInMarkers(activity: ARActivity, markerTOs: List<ARMarkerTransferable>)
         : CopyOnWriteArrayList<ARMarker> {
-    return CopyOnWriteArrayList(markerTOs.map {
-        ARMarker(it.name, it.latitude, it.longitude, it.altitude.toDouble(), it.color,
-                getBitmapFromDrawableNameForActivity(activity, it.bitmapName)) })
+    return CopyOnWriteArrayList(markerTOs.map { mapARMarkerTOInARMarker(activity, it) })
 }
 
 
+
 fun mapARMarkerTOInARMarker(activity: ARActivity, arMarkerTO: ARMarkerTransferable): ARMarker {
-    return ARMarker(arMarkerTO.name, arMarkerTO.latitude, arMarkerTO.longitude,
+
+    val m = ARMarker(arMarkerTO.name, arMarkerTO.latitude, arMarkerTO.longitude,
             arMarkerTO.altitude.toDouble(), arMarkerTO.color,
             getBitmapFromDrawableNameForActivity(activity, arMarkerTO.bitmapName))
+
+    // Uncomment methods below to test marker text box customization
+    //m.setBodyColor(250, 218, 76, 76)
+    //m.setFontColor(76, 218, 71)
+    //m.setFrameColor(245, 230, 96)
+    return m
 }
 
 
@@ -79,9 +85,9 @@ fun mapARMarkerTOInARMarker(activity: ARActivity, arMarkerTO: ARMarkerTransferab
 fun getFreshMockData(userLocation: Location): ArrayList<ARMarkerTransferable> {
 
     val markerTOs = ArrayList<ARMarkerTransferable>()
-    val mockRadius = 5000
+    val mockRadius = 3000
     val multiplyFactor = 1.0
-    val step = 0.008
+    val step = 0.011
     val random = Random()
 
     val p1 = calculateDerivedPosition(convertLocationToPointF(userLocation),
@@ -102,8 +108,9 @@ fun getFreshMockData(userLocation: Location): ArrayList<ARMarkerTransferable> {
     while (x <= lonMax) {
         var y = latMin
         while (y <= latMax) {
-            markerTOs.add(ARMarkerTransferable("${random.nextInt(1000)}", y, x, 0,
-                    Color.rgb(255, 255, 255), "custom_marker_grey"))
+            markerTOs.add(ARMarkerTransferable("Random Marker ${random.nextInt(1000)}",
+                    y, x, random.nextInt(50), Color.rgb(255, 255, 255),
+                    "custom_marker_grey"))
             y += step
         }
         x += step

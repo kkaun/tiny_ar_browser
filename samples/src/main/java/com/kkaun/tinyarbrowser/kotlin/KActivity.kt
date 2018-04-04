@@ -23,7 +23,7 @@ class KActivity : ARActivity() {
 
     companion object {
         private val TAG = "KActivity"
-        private val executorService = ThreadPoolExecutor(1, 1,
+        private val exec = ThreadPoolExecutor(1, 1,
                 20, TimeUnit.SECONDS, ArrayBlockingQueue<Runnable>(1))
     }
     lateinit var markerTOs: ArrayList<ARMarkerTransferable>
@@ -32,13 +32,10 @@ class KActivity : ARActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //markerTOs = ArrayList()
-        //showProgressBar()
         setRadarBodyColor(200, 138, 138, 138)
         setRadarLineColor(255, 255, 255)
         setRadarBodyRadius(100)
         setRadarTextColor(255, 255, 255)
-        //useCollisionDetection = false
 
         if (savedInstanceState != null) getExtraData(savedInstanceState)
         else getExtraData(intent.extras)
@@ -52,8 +49,7 @@ class KActivity : ARActivity() {
         if(extras.containsKey("place_ar_markers")){
             markerTOs = extras.getParcelableArrayList("place_ar_markers")
             markersDataSource.setData(CopyOnWriteArrayList(markerTOs.map {
-                mapARMarkerTOInARMarker(this@KActivity, it) }))
-        }
+                mapARMarkerTOInARMarker(this@KActivity, it) })) }
     }
 
     /**
@@ -81,7 +77,7 @@ class KActivity : ARActivity() {
     }
 
     private fun updateData(lastLocation: Location) {
-        try { executorService.execute {
+        try { exec.execute {
                 markerTOs = getFreshMockData(lastLocation)
                 markersDataSource.setData(convertTOsInMarkers(this@KActivity, markerTOs))
                 ARDataRepository.addMarkers(markersDataSource.markersCache as List<Marker>) }

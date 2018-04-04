@@ -54,7 +54,7 @@ class ARView(context: Context) : View(context) {
                 if (marker.isOnRadar) cache.add(marker)
             }
             collection = cache
-            if (ARActivity.useCollisionDetection) adjustForCollisions(canvas, collection)
+            if (ARActivity.collisionDetectionEnabled) adjustForCollisions(canvas, collection)
             val iter = collection.listIterator(collection.size)
             while (iter.hasPrevious()) {
                 val marker = iter.previous()

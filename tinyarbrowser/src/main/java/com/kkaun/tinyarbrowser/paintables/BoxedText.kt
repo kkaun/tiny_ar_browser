@@ -5,7 +5,11 @@ import android.graphics.Color
 import java.text.BreakIterator
 import java.util.*
 
-class BoxedText @JvmOverloads constructor(txtInit: String, fontSizeInit: Float, maxWidth: Float, borderColor: Int = Color.rgb(255, 255, 255), bgColor: Int = Color.argb(128, 0, 0, 0), textColor: Int = Color.rgb(255, 255, 255)) : CommonPaintable() {
+class BoxedText @JvmOverloads constructor(txtInit: String, fontSizeInit: Float, maxWidth: Float,
+                                          borderColor: Int = Color.rgb(255, 255, 255),
+                                          bgColor: Int = Color.argb(128, 0, 0, 0),
+                                          textColor: Int = Color.rgb(255, 255, 255))
+    : CommonPaintable() {
 
     private var mWidth = 0f
     private var mHeight = 0f
@@ -15,13 +19,15 @@ class BoxedText @JvmOverloads constructor(txtInit: String, fontSizeInit: Float, 
     private var lineHeight = 0f
     private var pad = 0f
     private var mFontSize = 12f
+
     private var borderColor = Color.rgb(255, 255, 255)
-    private var backgroundColor = Color.argb(160, 0, 0, 0)
+    private var backgroundColor = Color.argb(150, 0, 0, 0)
     private var textColor = Color.rgb(255, 255, 255)
 
     init { set(txtInit, fontSizeInit, maxWidth, borderColor, bgColor, textColor) }
 
-    operator fun set(txtInit: String?, fontSizeInit: Float, maxWidth: Float, borderColor: Int, bgColor: Int, textColor: Int) {
+    operator fun set(txtInit: String?, fontSizeInit: Float, maxWidth: Float, borderColor: Int,
+                     bgColor: Int, textColor: Int) {
         if (txtInit == null) throw NullPointerException()
         this.borderColor = borderColor
         this.backgroundColor = bgColor
@@ -38,7 +44,16 @@ class BoxedText @JvmOverloads constructor(txtInit: String, fontSizeInit: Float, 
             ex.printStackTrace()
             prepTxt("TEXT PARSE ERROR", 12f, 200f)
         }
+    }
 
+    fun setBorderColor(color: Int){
+        this.borderColor = Color.rgb(Color.red(color), Color.green(color), Color.blue(color))
+    }
+    fun setBackgroundColor(color: Int){
+        this.backgroundColor = Color.argb(Color.alpha(color), Color.red(color), Color.green(color), Color.blue(color))
+    }
+    fun setTextColor(color: Int) {
+        this.textColor = Color.rgb(Color.red(color), Color.green(color), Color.blue(color))
     }
 
     private fun prepTxt(txtInit: String?, fontSizeInit: Float, maxWidth: Float) {
@@ -66,12 +81,12 @@ class BoxedText @JvmOverloads constructor(txtInit: String, fontSizeInit: Float, 
             end = boundary.next()
         }
         val line = txtInit.substring(start, prevEnd)
-        lineList!!.add(line)
+        lineList?.add(line)
         if (lines == null || lines!!.size != lineList!!.size)
             lines = Array(lineList!!.size, { "" } )
         if (lineWidths == null || lineWidths!!.size != lineList!!.size)
             lineWidths = FloatArray(lineList!!.size)
-        lineList!!.toArray(lines)
+        lineList?.toArray(lines)
         var maxLineWidth = 0f
         for (i in lines!!.indices) {
             lineWidths!![i] = getTextWidth(lines!![i])

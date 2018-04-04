@@ -39,6 +39,10 @@ open class Marker(name: String, latitude: Double, longitude: Double,
     protected val symbolArray = FloatArray(3)
     protected val textArray = FloatArray(3)
 
+    private var tbTextColor: Int = Color.rgb(255, 255, 255)
+    private var tbBackgroundColor: Int = Color.argb(150, 0, 0, 0)
+    private var tbBorderColor: Int = Color.rgb(255, 255, 255)
+
     @get:Synchronized
     var initialY = 0.0f
         private set
@@ -328,7 +332,10 @@ open class Marker(name: String, latitude: Double, longitude: Double,
         val maxHeight = (Math.round(canvas.height / 10f) + 1).toFloat()
         if (textBox == null) textBox = BoxedText(textStr,
                 (Math.round(maxHeight / 2f) + 1).toFloat(), 300f)
-        else textBox!!.set(textStr, (Math.round(maxHeight / 2f) + 1).toFloat(), 300f)
+        else textBox?.set(textStr, (Math.round(maxHeight / 2f) + 1).toFloat(), 300f)
+        textBox?.setBackgroundColor(tbBackgroundColor)
+        textBox?.setTextColor(tbTextColor)
+        textBox?.setBorderColor(tbBorderColor)
         val currentAngle = getAngle(symbolArray[0], symbolArray[1], textArray[0], textArray[1])
         val angle = currentAngle + 90
         val x = textArray[0] - textBox!!.getWidth() / 2
@@ -336,6 +343,16 @@ open class Marker(name: String, latitude: Double, longitude: Double,
         if (textContainer == null) textContainer = Position(textBox!!, x, y, angle, 1f)
         else textContainer!![textBox, x, y, angle] = 1f
         textContainer!!.paint(canvas)
+    }
+
+    fun setTextBoxTextColor(red: Int, green: Int, blue: Int) {
+        tbTextColor = Color.rgb(red, green, blue)
+    }
+    fun setTextBoxBackgroundColor(alpha: Int, red: Int, green: Int, blue: Int) {
+        tbBackgroundColor = Color.argb(alpha, red, green, blue)
+    }
+    fun setTextBoxBorderColor(red: Int, green: Int, blue: Int) {
+        tbBorderColor = Color.rgb(red, green, blue)
     }
 
     @Synchronized

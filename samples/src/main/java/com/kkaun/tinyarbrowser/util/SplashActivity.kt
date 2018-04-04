@@ -9,6 +9,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
+import android.widget.RelativeLayout
 import android.widget.Toast
 import com.kkaun.tinyarbrowser.R
 import com.kkaun.tinyarbrowser.data.ARDataRepository
@@ -23,6 +25,7 @@ open class SplashActivity : AppCompatActivity(), ColdLocationRequestHelper.ColdL
     }
     private val timeoutMillis = 500
     private var startTimeMillis: Long = 0
+    private lateinit var progressHolder: RelativeLayout
 
     /**
      * By setting this flag to false you make Java Sample Activity running instead of Kotlin
@@ -57,12 +60,16 @@ open class SplashActivity : AppCompatActivity(), ColdLocationRequestHelper.ColdL
             val intent = Intent(this@SplashActivity, nextActivityClass)
             intent.putExtras(b)
             startActivity(intent)
+            progressHolder.visibility = View.INVISIBLE
+            progressHolder.visibility = View.GONE
             finish() }, delayMillis)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        progressHolder = findViewById(R.id.progress_bar_holder)
+        progressHolder.visibility = View.VISIBLE
 
         if (Build.VERSION.SDK_INT >= 23) checkPermissions()
         else requestLocationForResult()

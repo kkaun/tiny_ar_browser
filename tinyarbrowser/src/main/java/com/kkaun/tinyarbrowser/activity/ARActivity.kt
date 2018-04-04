@@ -36,9 +36,8 @@ abstract class ARActivity : OrientationActivity(), OnTouchListener {
         private val zoomBarBackgroundColor = Color.argb(125, 55, 55, 55)
         private val endText = FORMAT.format(maxZoom.toDouble()) + " km"
         private val endTextColor = Color.WHITE
-        //PREFS
         var menuEnabled = true
-        var useCollisionDetection = true //!
+        var collisionDetectionEnabled = true
         var useRadar = true
         var useZoomBar = true
         var showRadar = false
@@ -57,10 +56,6 @@ abstract class ARActivity : OrientationActivity(), OnTouchListener {
     var endLabel: TextView? = null
     open var zoomLayout: LinearLayout? = null
 
-    lateinit var progressBarLayout: RelativeLayout
-    lateinit var progressBar: ProgressBar
-
-
     private val myZoomBarOnSeekBarChangeListener = object : OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
             updateDataOnZoom()
@@ -69,7 +64,7 @@ abstract class ARActivity : OrientationActivity(), OnTouchListener {
         override fun onStartTrackingTouch(seekBar: SeekBar) { }
         override fun onStopTrackingTouch(seekBar: SeekBar) {
             updateDataOnZoom()
-            camScreen!!.invalidate()
+            camScreen?.invalidate()
         }
     }
 
@@ -83,7 +78,6 @@ abstract class ARActivity : OrientationActivity(), OnTouchListener {
         prepareMenuBtnLayout()
         setPopupMenu()
         prepareZoomLayout()
-        prepareProgressBarLayout()
         preparePowerManager()
     }
 
@@ -110,29 +104,10 @@ abstract class ARActivity : OrientationActivity(), OnTouchListener {
         else menuBtn.setImageDrawable(resources.getDrawable(R.drawable.ic_view_menu_white_24dp))
 
         val fabParams = RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-        menuBtnLayout!!.addView(menuBtn, fabParams)
+        menuBtnLayout?.addView(menuBtn, fabParams)
         val menuLayoutParams = FrameLayout.LayoutParams(pixels, pixels,
                 Gravity.BOTTOM or Gravity.START)
         addContentView(menuBtnLayout, menuLayoutParams)
-    }
-
-    fun prepareProgressBarLayout() {
-        val dpSize = 60 //in dp
-        val scale = ctx.resources.displayMetrics.density
-        val pixels = (dpSize * scale + 0.5f).toInt()
-        progressBarLayout = RelativeLayout(this@ARActivity)
-        progressBarLayout.visibility = View.GONE
-        progressBarLayout.setBackgroundColor(Color.TRANSPARENT)
-        progressBar = ProgressBar(this@ARActivity, null, android.R.attr.progressBarStyleLarge)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            progressBar.progressDrawable = (resources.getDrawable(R.drawable.progressbar_round))
-        else progressBar.progressDrawable = (resources.getDrawable(R.drawable.progressbar_round))
-
-        val progressBarParams = RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-        progressBarLayout.addView(progressBar, progressBarParams)
-        val progressLayoutParams = FrameLayout.LayoutParams(pixels, pixels,
-                Gravity.CENTER or Gravity.CENTER_HORIZONTAL or Gravity.CENTER_VERTICAL)
-        addContentView(progressBarLayout, progressLayoutParams)
     }
 
     fun setPopupMenu() {
@@ -150,7 +125,7 @@ abstract class ARActivity : OrientationActivity(), OnTouchListener {
                             item.title = switchRadarTitle
                             popup.menu.add(switchRadarTitle) }
                         switchZoomBarTitle -> {
-                            showZoomBar =!showZoomBar
+                            showZoomBar = !showZoomBar
                             item.title = switchZoomBarTitle
                             zoomLayout?.visibility = if (showZoomBar)
                                 LinearLayout.VISIBLE else LinearLayout.GONE
@@ -165,22 +140,22 @@ abstract class ARActivity : OrientationActivity(), OnTouchListener {
 
     fun prepareZoomLayout() {
         zoomLayout = LinearLayout(this@ARActivity)
-        zoomLayout!!.visibility = if (showZoomBar) LinearLayout.VISIBLE else LinearLayout.GONE
-        zoomLayout!!.orientation = LinearLayout.VERTICAL
-        zoomLayout!!.setPadding(5, 5, 5, 5)
-        zoomLayout!!.setBackgroundColor(zoomBarBackgroundColor)
+        zoomLayout?.visibility = if (showZoomBar) LinearLayout.VISIBLE else LinearLayout.GONE
+        zoomLayout?.orientation = LinearLayout.VERTICAL
+        zoomLayout?.setPadding(5, 5, 5, 5)
+        zoomLayout?.setBackgroundColor(zoomBarBackgroundColor)
         endLabel = TextView(this@ARActivity)
-        endLabel!!.text = endText
-        endLabel!!.setTextColor(endTextColor)
+        endLabel?.text = endText
+        endLabel?.setTextColor(endTextColor)
         val zoomTextParams = LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
-        zoomLayout!!.addView(endLabel, zoomTextParams)
+        zoomLayout?.addView(endLabel, zoomTextParams)
         mZoomBar = VerticalSeekBar(this@ARActivity)
-        mZoomBar!!.max = 5
-        mZoomBar!!.progress = 1
-        mZoomBar!!.setOnSeekBarChangeListener(myZoomBarOnSeekBarChangeListener)
+        mZoomBar?.max = 5
+        mZoomBar?.progress = 1
+        mZoomBar?.setOnSeekBarChangeListener(myZoomBarOnSeekBarChangeListener)
         val zoomBarParams = LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
         zoomBarParams.gravity = Gravity.CENTER_HORIZONTAL
-        zoomLayout!!.addView(mZoomBar, zoomBarParams)
+        zoomLayout?.addView(mZoomBar, zoomBarParams)
         val frameLayoutParams = FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.MATCH_PARENT, Gravity.END)
         addContentView(zoomLayout, frameLayoutParams)
@@ -260,14 +235,6 @@ abstract class ARActivity : OrientationActivity(), OnTouchListener {
         return out
     }
 
-    fun showProgressBar() {
-        progressBarLayout.visibility = View.VISIBLE
-    }
-    fun hideProgressBar() {
-        progressBarLayout.visibility = View.INVISIBLE
-        progressBarLayout.visibility = View.GONE
-    }
-
     fun useRadar(use: Boolean) {
         useRadar = use
     }
@@ -315,16 +282,8 @@ abstract class ARActivity : OrientationActivity(), OnTouchListener {
     fun setRadarLineColor(red: Int, green: Int, blue: Int) {
         if(showRadar) arView?.radar?.setLineColor(red, green, blue)
     }
-    fun setMarkerTextBodyRadius(radius: Int) {
-        //if(showRadar) arView?.radar?.setRadarBodyRadius(radius.toFloat())
-    }
-    fun setMarkerTextBodyColor(alpha: Int, red: Int, green: Int, blue: Int) {
-        //if(showRadar) arView?.radar?.setRadarBodyColor(alpha, red, green, blue)
-    }
-    fun setMarkerTextColor(red: Int, green: Int, blue: Int) {
-        //if(showRadar) arView?.radar?.setTextColor(red, green, blue)
-    }
-    fun setMarkerTextLineColor(red: Int, green: Int, blue: Int) {
-        //if(showRadar) arView?.radar?.setLineColor(red, green, blue)
+
+    fun setCollisionDetectionEnabled(enabled: Boolean) {
+        collisionDetectionEnabled = enabled
     }
 }

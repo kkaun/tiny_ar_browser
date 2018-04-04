@@ -2,6 +2,7 @@ package com.kkaun.tinyarbrowser.java;
 
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -28,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 public class JActivity extends ARActivity {
 
     private static final String TAG = "JActivity";
-    private static ExecutorService executorService = new ThreadPoolExecutor(1, 1,
+    private static ExecutorService exec = new ThreadPoolExecutor(1, 1,
             20, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(1));
     private static CacheDataSource markersDataSource = new CacheDataSource();
     private ArrayList<ARMarkerTransferable> markerTOs = new ArrayList<>();
@@ -82,17 +84,17 @@ public class JActivity extends ARActivity {
     }
 
     private void updateData(final Location lastLocation) {
-//        try { executorService.execute(new Runnable() {
-//                @Override
-//                public void run() {
-        markerTOs = DemoUtils.getFreshMockData(lastLocation);
-        markersDataSource.setData(DemoUtils.convertTOsInMarkers(this, markerTOs));
-        ARDataRepository.addMarkers(markersDataSource.getMarkersCache());
-//                }});
-//        } catch (RejectedExecutionException rej) {
-//            Log.w(TAG, "Not running new download Runnable, queue is full.");
-//        } catch (Exception e) {
-//            Log.e(TAG, "Exception running download Runnable.", e); }
+        try { exec.execute(new Runnable() {
+                @Override
+                public void run() {
+                    markerTOs = DemoUtils.getFreshMockData(lastLocation);
+                    markersDataSource.setData(DemoUtils.convertTOsInMarkers(JActivity.this, markerTOs));
+                    ARDataRepository.addMarkers(markersDataSource.getMarkersCache());
+                }});
+        } catch (RejectedExecutionException rej) {
+            Log.w(TAG, "Not running new download Runnable, queue is full.");
+        } catch (Exception e) {
+            Log.e(TAG, "Exception running download Runnable.", e); }
     }
 
     @Override
