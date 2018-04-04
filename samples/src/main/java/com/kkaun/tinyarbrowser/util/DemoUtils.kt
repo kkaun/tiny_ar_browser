@@ -87,7 +87,7 @@ fun getFreshMockData(userLocation: Location): ArrayList<ARMarkerTransferable> {
     val markerTOs = ArrayList<ARMarkerTransferable>()
     val mockRadius = 3000
     val multiplyFactor = 1.0
-    val step = 0.011
+    val step = 0.01
     val random = Random()
 
     val p1 = calculateDerivedPosition(convertLocationToPointF(userLocation),
@@ -104,14 +104,16 @@ fun getFreshMockData(userLocation: Location): ArrayList<ARMarkerTransferable> {
     val lonMax = p2.y.toDouble()
     val lonMin = p4.y.toDouble()
 
+    var nameCounter = 0
     var x = lonMin
     while (x <= lonMax) {
         var y = latMin
         while (y <= latMax) {
-            markerTOs.add(ARMarkerTransferable("Random Marker ${random.nextInt(1000)}",
+            markerTOs.add(ARMarkerTransferable("Random Marker $nameCounter",
                     y, x, random.nextInt(50), Color.rgb(255, 255, 255),
                     "custom_marker_grey"))
             y += step
+            nameCounter++
         }
         x += step
     }

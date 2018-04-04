@@ -105,7 +105,7 @@ object ARDataRepository {
     }
 
     @JvmStatic
-    fun addMarkers(markers: Collection<Marker>?) {
+    fun populateARData(markers: Collection<Marker>?) {
         if (markers == null) throw NullPointerException()
         if (markers.isEmpty()) return
         Log.d(TAG, "New markers, updating markers. New markers: " + markers.toString())

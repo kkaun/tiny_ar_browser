@@ -1,5 +1,8 @@
 ## *Tiny AR Browser*
 
+[![](https://jitpack.io/v/kkaun/tiny_ar_browser.svg)](https://jitpack.io/#kkaun/tiny_ar_browser)
+
+
 Simple AR Browser Android library written in Kotlin which represents single 
 Camera activity with AR and fully customizable UI overlays. 
 
@@ -33,7 +36,17 @@ basic activity has no parent xml layouts; you can attach custom xml
 layouts or views to UI implementation though, but in most cases you could add 
 custom elements programmatically if needed;
 - transforming your data into collection of `ARMarker`s
-or extending your app's data class from `ARMarker`.
+or extending your app's data class from `ARMarker`;
+- providing static `CacheDataSource` field to your activity for caching markers and 
+use `cacheDataSource.setData(data: CopyOnWriteArrayList<ARMarker>)` 
+when your `ARMarker` collection is ready for use;
+- accessing `ARDataRepository` "singleton" (Kotlin object) and calling 
+`ARDataRepository.populateARData(markers: Collection<Marker>?)` to populate data 
+for the projection view (`ARMarker` extends `Marker`, so there's no need to transform it here).
+
+*Generally projection-ready markers are hashed by their names(titles), 
+so **each marker should have its unique name** for proper working. 
+Feel free to make pull requests with own implementations of this and other concepts.*
 
 
 ## Features
@@ -55,7 +68,7 @@ inside overriden `onCreate()` or business methods:
 | `setMenuEnabled(enabled: Boolean)`                                | Enable/disable menu button  | `true`  |
 | `setZoomProgress(progress: Int)`                                  | Set Zoom bar progress (in km) | `1-5`  |
 | `setMaxZoom(max: Int)`                                            | Set Zoom bar's max value (in km) | `2-100`  |
-| `setCollisionDetectionEnabled(enabled: Boolean)`                  | Enable/disable markers collision detection. Caution: currently disabling it may lead to unpredictable results with massive data set!  | `true` |
+| `setCollisionDetectionEnabled(enabled: Boolean)`                  | Enable/disable markers collision detection. Caution: at current stage disabling it may lead to unpredictable results with massive data set  | `true` |
 | `setMenuSwitchRadarTitle(title: String)`                          | Set menu Radar item title  | Any `String` from your resources  |
 | `setMenuSwitchZoomBarTitle(title: String)`                        | Set menu Zoom bar item title  | Any `String` from your resources  |
 | `setMenuExitActivityTitle(title: String)`                         | Set menu Exit item title  | Any `String` from your resources  |

@@ -46,7 +46,7 @@ public class JActivity extends ARActivity {
 
         if (savedInstanceState != null) getExtraData(savedInstanceState);
         else getExtraData(getIntent().getExtras());
-        ARDataRepository.addMarkers(markersDataSource.getMarkersCache());
+        ARDataRepository.populateARData(markersDataSource.getMarkersCache());
     }
 
     private void getExtraData(Bundle extras) {
@@ -89,7 +89,7 @@ public class JActivity extends ARActivity {
                 public void run() {
                     markerTOs = DemoUtils.getFreshMockData(lastLocation);
                     markersDataSource.setData(DemoUtils.convertTOsInMarkers(JActivity.this, markerTOs));
-                    ARDataRepository.addMarkers(markersDataSource.getMarkersCache());
+                    ARDataRepository.populateARData(markersDataSource.getMarkersCache());
                 }});
         } catch (RejectedExecutionException rej) {
             Log.w(TAG, "Not running new download Runnable, queue is full.");

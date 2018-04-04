@@ -25,9 +25,9 @@ class KActivity : ARActivity() {
         private val TAG = "KActivity"
         private val exec = ThreadPoolExecutor(1, 1,
                 20, TimeUnit.SECONDS, ArrayBlockingQueue<Runnable>(1))
+        private val markersDataSource: CacheDataSource = CacheDataSource()
     }
     lateinit var markerTOs: ArrayList<ARMarkerTransferable>
-    private val markersDataSource: CacheDataSource = CacheDataSource()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,7 @@ class KActivity : ARActivity() {
 
         if (savedInstanceState != null) getExtraData(savedInstanceState)
         else getExtraData(intent.extras)
-        ARDataRepository.addMarkers(markersDataSource.markersCache as List<Marker>)
+        ARDataRepository.populateARData(markersDataSource.markersCache as List<Marker>)
     }
 
     /**
@@ -80,7 +80,7 @@ class KActivity : ARActivity() {
         try { exec.execute {
                 markerTOs = getFreshMockData(lastLocation)
                 markersDataSource.setData(convertTOsInMarkers(this@KActivity, markerTOs))
-                ARDataRepository.addMarkers(markersDataSource.markersCache as List<Marker>) }
+                ARDataRepository.populateARData(markersDataSource.markersCache as List<Marker>) }
         } catch (rej: RejectedExecutionException) {
             Log.w(TAG, "Exception running data update: RejectedExecutionException")
         } catch (e: Exception) {
