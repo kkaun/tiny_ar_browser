@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TinyARBrowser.iml" filepath="$PROJECT_DIR$/TinyARBrowser.iml" />
-      <module fileurl="file://$PROJECT_DIR$/samples/samples.iml" filepath="$PROJECT_DIR$/samples/samples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tinyarbrowser/samples/samples.iml" filepath="$PROJECT_DIR$/tinyarbrowser/samples/samples.iml" />
       <module fileurl="file://$PROJECT_DIR$/tinyarbrowser/tinyarbrowser.iml" filepath="$PROJECT_DIR$/tinyarbrowser/tinyarbrowser.iml" />
     </modules>
   </component>
