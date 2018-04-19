@@ -1,6 +1,6 @@
 @file:JvmName("DemoUtils")
 @file:JvmMultifileClass
-package com.kkaun.tinyarbrowser.util
+package com.kkaun.tinyarbrowser.samples.util
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory

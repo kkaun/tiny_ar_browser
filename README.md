@@ -27,7 +27,7 @@ Root `build.gradle`:
 Local `build.gradle`:
 
 	dependencies {
-	        implementation 'com.github.kkaun:tiny_ar_browser:1.2'
+	        implementation 'com.github.kkaun:tiny_ar_browser:1.3'
 	}
 
 After the import all you have to do to make it work is:

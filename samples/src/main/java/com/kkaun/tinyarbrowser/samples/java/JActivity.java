@@ -1,4 +1,4 @@
-package com.kkaun.tinyarbrowser.java;
+package com.kkaun.tinyarbrowser.samples.java;
 
 import android.location.Location;
 import android.os.Bundle;
@@ -10,8 +10,8 @@ import com.kkaun.tinyarbrowser.activity.ARActivity;
 import com.kkaun.tinyarbrowser.data.ARDataRepository;
 import com.kkaun.tinyarbrowser.data.CacheDataSource;
 import com.kkaun.tinyarbrowser.paintables.Marker;
-import com.kkaun.tinyarbrowser.util.ARMarkerTransferable;
-import com.kkaun.tinyarbrowser.util.DemoUtils;
+import com.kkaun.tinyarbrowser.samples.util.ARMarkerTransferable;
+import com.kkaun.tinyarbrowser.samples.util.DemoUtils;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

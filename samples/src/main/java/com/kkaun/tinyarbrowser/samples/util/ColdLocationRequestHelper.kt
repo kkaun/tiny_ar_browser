@@ -1,4 +1,4 @@
-package com.kkaun.tinyarbrowser.util
+package com.kkaun.tinyarbrowser.samples.util
 
 import android.Manifest
 import android.content.Context
@@ -27,15 +27,21 @@ object ColdLocationRequestHelper {
     }
 
     fun requestColdLocationUpdate(ctx: Context, receiver: ColdLocationReceiver) {
-        requestSingleUpdate(ctx, object : ColdLocationRequestHelper.LocationCallback {
-            override fun onNewLocationAvailable(location: ColdLocationRequestHelper.GPSCoordinates) {
+        requestSingleUpdate(ctx, object : LocationCallback {
+            override fun onNewLocationAvailable(location: GPSCoordinates) {
                 val mLocation = Location(LocationManager.GPS_PROVIDER)
                 mLocation.latitude = location.latitude
                 mLocation.longitude = location.longitude
                 receiver.onColdLocationReceived(mLocation)
             }
-            override fun onLocationFailure() { receiver.onColdLocationFailure() }
-            override fun onProviderDisabled() { receiver.onProviderDisabled() }
+
+            override fun onLocationFailure() {
+                receiver.onColdLocationFailure()
+            }
+
+            override fun onProviderDisabled() {
+                receiver.onProviderDisabled()
+            }
         })
     }
 

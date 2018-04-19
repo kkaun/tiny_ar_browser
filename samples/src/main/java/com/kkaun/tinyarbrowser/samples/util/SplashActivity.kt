@@ -1,4 +1,4 @@
-package com.kkaun.tinyarbrowser.util
+package com.kkaun.tinyarbrowser.samples.util
 
 import android.annotation.TargetApi
 import android.content.Intent
@@ -12,10 +12,10 @@ import android.util.Log
 import android.view.View
 import android.widget.RelativeLayout
 import android.widget.Toast
-import com.kkaun.tinyarbrowser.R
 import com.kkaun.tinyarbrowser.data.ARDataRepository
-import com.kkaun.tinyarbrowser.java.JActivity
-import com.kkaun.tinyarbrowser.kotlin.KActivity
+import com.kkaun.tinyarbrowser.samples.R
+import com.kkaun.tinyarbrowser.samples.java.JActivity
+import com.kkaun.tinyarbrowser.samples.kotlin.KActivity
 import java.util.*
 
 open class SplashActivity : AppCompatActivity(), ColdLocationRequestHelper.ColdLocationReceiver {

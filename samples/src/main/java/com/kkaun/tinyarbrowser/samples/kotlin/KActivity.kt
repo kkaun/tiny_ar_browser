@@ -1,4 +1,4 @@
-package com.kkaun.tinyarbrowser.kotlin
+package com.kkaun.tinyarbrowser.samples.kotlin
 
 import android.location.Location
 import android.os.Bundle
@@ -9,10 +9,10 @@ import com.kkaun.tinyarbrowser.activity.ARActivity
 import com.kkaun.tinyarbrowser.data.ARDataRepository
 import com.kkaun.tinyarbrowser.data.CacheDataSource
 import com.kkaun.tinyarbrowser.paintables.Marker
-import com.kkaun.tinyarbrowser.util.ARMarkerTransferable
-import com.kkaun.tinyarbrowser.util.convertTOsInMarkers
-import com.kkaun.tinyarbrowser.util.getFreshMockData
-import com.kkaun.tinyarbrowser.util.mapARMarkerTOInARMarker
+import com.kkaun.tinyarbrowser.samples.util.ARMarkerTransferable
+import com.kkaun.tinyarbrowser.samples.util.convertTOsInMarkers
+import com.kkaun.tinyarbrowser.samples.util.getFreshMockData
+import com.kkaun.tinyarbrowser.samples.util.mapARMarkerTOInARMarker
 import java.util.concurrent.*
 
 /**
@@ -49,7 +49,8 @@ class KActivity : ARActivity() {
         if(extras.containsKey("place_ar_markers")){
             markerTOs = extras.getParcelableArrayList("place_ar_markers")
             markersDataSource.setData(CopyOnWriteArrayList(markerTOs.map {
-                mapARMarkerTOInARMarker(this@KActivity, it) })) }
+                mapARMarkerTOInARMarker(this@KActivity, it)
+            })) }
     }
 
     /**
