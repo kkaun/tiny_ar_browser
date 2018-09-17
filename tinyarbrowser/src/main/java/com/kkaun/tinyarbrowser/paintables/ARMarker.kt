@@ -4,9 +4,9 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import com.kkaun.tinyarbrowser.util.getAngle
 
-class ARMarker(name: String, latitude: Double, longitude: Double,
-               altitude: Double, color: Int, bitmap: Bitmap)
-    : Marker(name, latitude, longitude, altitude, color) {
+class ARMarker(name: String, description: String, latitude: Double, longitude: Double,
+               altitude: Double, color: Int, bitmap: Bitmap, extraData: Array<out Any> = emptyArray())
+    : Marker(name, description, latitude, longitude, altitude, color, extraData) {
 
     private var bitmap: Bitmap? = null
     init { this.bitmap = bitmap }

@@ -12,8 +12,8 @@ import com.kkaun.tinyarbrowser.util.getAngle
 import java.text.DecimalFormat
 import java.util.*
 
-open class Marker(name: String, latitude: Double, longitude: Double,
-                  altitude: Double, color: Int) : Comparable<Marker> {
+open class Marker(name: String, description: String, latitude: Double, longitude: Double,
+                  altitude: Double, color: Int, data: Array<out Any> = emptyArray()) : Comparable<Marker> {
 
     companion object {
         private val DECIMAL_FORMAT = DecimalFormat("@#")
@@ -56,6 +56,11 @@ open class Marker(name: String, latitude: Double, longitude: Double,
     protected var symbolContainer: Position? = null
     @get:Synchronized
     var name: String? = null
+        protected set
+    @get:Synchronized
+    var description: String? = null
+        protected set
+    var extraData: Array<out Any>? = null
         protected set
     @Volatile
     protected var physicalLocationHelper = PhysicalLocationHelper()
@@ -103,12 +108,15 @@ open class Marker(name: String, latitude: Double, longitude: Double,
             return if (w1 > w2) w1 else w2
         }
 
-    init { set(name, latitude, longitude, altitude, color) }
+    init { set(name, description, latitude, longitude, altitude, color, data) }
 
     @Synchronized
-    operator fun set(name: String?, latitude: Double, longitude: Double, altitude: Double, color: Int) {
+    operator fun set(name: String?, description: String, latitude: Double, longitude: Double,
+                     altitude: Double, color: Int, extraData: Array<out Any>) {
         if (name == null) throw NullPointerException()
         this.name = name
+        this.description = description
+        this.extraData = extraData
         this.physicalLocationHelper[latitude, longitude] = altitude
         this.color = color
         this.isOnRadar = false
@@ -321,8 +329,7 @@ open class Marker(name: String, latitude: Double, longitude: Double,
     @Synchronized
     protected fun drawText(canvas: Canvas?) {
         if (canvas == null) throw NullPointerException()
-        var textStr: String? = null
-        textStr = if (distance < 1000.0) name + " (" + DECIMAL_FORMAT.format(distance) + "m)"
+        val textStr = if (distance < 1000.0) name + " (" + DECIMAL_FORMAT.format(distance) + "m)"
         else {
             val d = distance / 1000.0
             name + " (" + DECIMAL_FORMAT.format(d) + "km)"
