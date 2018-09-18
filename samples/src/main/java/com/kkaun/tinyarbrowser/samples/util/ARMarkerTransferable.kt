@@ -9,11 +9,12 @@ import java.io.Serializable
  */
 
 class ARMarkerTransferable(val name: String,
-                 val latitude: Double,
-                 val longitude: Double,
-                 val altitude: Int,
-                 val color: Int,
-                 val bitmapName: String): Serializable, Parcelable {
+                           val description: String,
+                           val latitude: Double,
+                           val longitude: Double,
+                           val altitude: Int,
+                           val color: Int,
+                           val bitmapName: String): Serializable, Parcelable {
 
     companion object {
         @JvmField
@@ -22,6 +23,7 @@ class ARMarkerTransferable(val name: String,
     }
 
     constructor(parcel: Parcel) : this(
+            parcel.readString(),
             parcel.readString(),
             parcel.readDouble(),
             parcel.readDouble(),

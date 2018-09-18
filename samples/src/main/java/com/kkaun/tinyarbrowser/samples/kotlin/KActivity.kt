@@ -1,14 +1,19 @@
 package com.kkaun.tinyarbrowser.samples.kotlin
 
+import android.content.Context
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
-import android.widget.Toast
+import android.view.LayoutInflater
+import android.widget.Button
+import android.widget.PopupWindow
+import android.widget.TextView
 import com.kkaun.tinyarbrowser.activity.ARActivity
 import com.kkaun.tinyarbrowser.data.ARDataRepository
 import com.kkaun.tinyarbrowser.data.CacheDataSource
 import com.kkaun.tinyarbrowser.paintables.Marker
+import com.kkaun.tinyarbrowser.samples.R
 import com.kkaun.tinyarbrowser.samples.util.ARMarkerTransferable
 import com.kkaun.tinyarbrowser.samples.util.convertTOsInMarkers
 import com.kkaun.tinyarbrowser.samples.util.getFreshMockData
@@ -66,9 +71,25 @@ class KActivity : ARActivity() {
      */
     override fun onMarkerTouched(marker: Marker) {
         super.onMarkerTouched(marker)
-        val t = Toast.makeText(applicationContext, "Clicked ${marker.name}", Toast.LENGTH_SHORT)
-        t.setGravity(Gravity.CENTER, 0, 0)
-        t.show()
+        val layoutInflater = baseContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val rootView = window.decorView.rootView
+
+        val popupView = layoutInflater.inflate(R.layout.marker_popup, null) //null?
+
+        val titleText: TextView = popupView.findViewById(R.id.title_text)
+        val descrText: TextView = popupView.findViewById(R.id.descr_text)
+        val dismissBtn: Button = popupView.findViewById(R.id.close_btn)
+
+        val popupWindow = PopupWindow(popupView, 200, 150, true)
+
+        titleText.text = marker.name
+        descrText.text = marker.description
+        dismissBtn.setOnClickListener { popupWindow.dismiss() }
+
+        popupWindow.showAtLocation(rootView, Gravity.CENTER, 0, 0)
+
+        rootView.setOnTouchListener { v, event -> popupWindow.dismiss()
+            true }
     }
 
     override fun updateDataOnZoom() {
