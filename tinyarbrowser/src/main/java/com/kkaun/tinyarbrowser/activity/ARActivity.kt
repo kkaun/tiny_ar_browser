@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
 import android.os.PowerManager.WakeLock
+import android.support.design.widget.FloatingActionButton
 import android.util.Log
 import android.view.Gravity
 import android.view.MotionEvent

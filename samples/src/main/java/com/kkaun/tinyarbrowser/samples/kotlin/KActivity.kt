@@ -80,7 +80,7 @@ class KActivity : ARActivity() {
         val descrText: TextView = popupView.findViewById(R.id.descr_text)
         val dismissBtn: Button = popupView.findViewById(R.id.close_btn)
 
-        val popupWindow = PopupWindow(popupView, 200, 150, true)
+        val popupWindow = PopupWindow(popupView, 500, 250, true)
 
         titleText.text = marker.name
         descrText.text = marker.description

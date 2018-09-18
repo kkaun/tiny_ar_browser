@@ -85,27 +85,28 @@ fun mapARMarkerTOInARMarker(activity: ARActivity, arMarkerTO: ARMarkerTransferab
 fun getFreshMockData(userLocation: Location): ArrayList<ARMarkerTransferable> {
 
     val markerTOs = ArrayList<ARMarkerTransferable>()
-    val mockRadius = 3000
-    val multiplyFactor = 1.0
-    val step = 0.01
+//    val mockRadius = 3000
+//    val multiplyFactor = 1.0
+    val step = 0.02
     val random = Random()
 
-    val p1 = calculateDerivedPosition(convertLocationToPointF(userLocation),
-            multiplyFactor * mockRadius, 0.toDouble())
-    val p2 = calculateDerivedPosition(convertLocationToPointF(userLocation),
-            multiplyFactor * mockRadius, 90.toDouble())
-    val p3 = calculateDerivedPosition(convertLocationToPointF(userLocation),
-            multiplyFactor * mockRadius, 180.toDouble())
-    val p4 = calculateDerivedPosition(convertLocationToPointF(userLocation),
-            multiplyFactor * mockRadius, 270.toDouble())
+//    This values can be used to generate real-time mock data
+//    val p1 = calculateDerivedPosition(convertLocationToPointF(userLocation),
+//            multiplyFactor * mockRadius, 0.toDouble())
+//    val p2 = calculateDerivedPosition(convertLocationToPointF(userLocation),
+//            multiplyFactor * mockRadius, 90.toDouble())
+//    val p3 = calculateDerivedPosition(convertLocationToPointF(userLocation),
+//            multiplyFactor * mockRadius, 180.toDouble())
+//    val p4 = calculateDerivedPosition(convertLocationToPointF(userLocation),
+//            multiplyFactor * mockRadius, 270.toDouble())
 
-    //		//For Saint-Petersburg area
+//		//For Spb area
 //		double latMin = 59.839738;
 //		double latMax = 60.003991;
 //		double lonMin = 30.236244;
 //		double lonMax = 30.474154;
 
-    //For Kramators'k area
+    //For Krm area
     val latMin = 48.674679
     val latMax = 48.811720
     val lonMin = 37.453154

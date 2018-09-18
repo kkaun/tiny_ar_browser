@@ -33,6 +33,7 @@ class ARMarkerTransferable(val name: String,
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
         dest.writeString(name)
+        dest.writeString(description)
         dest.writeDouble(latitude)
         dest.writeDouble(longitude)
         dest.writeInt(altitude)
