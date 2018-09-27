@@ -117,7 +117,7 @@ fun getFreshMockData(userLocation: Location): ArrayList<ARMarkerTransferable> {
     while (x <= lonMax) {
         var y = latMin
         while (y <= latMax) {
-            markerTOs.add(ARMarkerTransferable("Random Marker $nameCounter", "Description!!!!!",
+            markerTOs.add(ARMarkerTransferable("Random Marker $nameCounter", "Description",
                     y, x, random.nextInt(50), Color.rgb(255, 255, 255),
                     "custom_marker_grey"))
             y += step

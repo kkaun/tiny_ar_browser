@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.os.PowerManager
 import android.os.PowerManager.WakeLock
 import android.support.design.widget.FloatingActionButton
-import android.util.Log
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
@@ -203,9 +202,7 @@ abstract class ARActivity : OrientationActivity(), OnTouchListener {
         return super.onTouchEvent(me)
     }
 
-    protected open fun onMarkerTouched(marker: Marker) {
-        Log.w(TAG, "onMarkerTouched() not implemented.")
-    }
+    protected open fun onMarkerTouched(marker: Marker) { }
 
     private fun calcZoomLevel(): Float {
         return (mZoomBar!!.progress).toFloat()

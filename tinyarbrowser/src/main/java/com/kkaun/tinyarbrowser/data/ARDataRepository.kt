@@ -9,6 +9,7 @@ import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.atomic.AtomicBoolean
+import kotlin.collections.ArrayList
 
 object ARDataRepository {
 
@@ -128,6 +129,11 @@ object ARDataRepository {
             Log.v(TAG, "Setting DIRTY flag!")
             cache.clear()
         }
+    }
+
+    fun removeAllMarkers() {
+        cache.clear()
+        markerMap.clear()
     }
 
     fun setAzimuth(azimuth: Float) {
